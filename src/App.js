@@ -10,11 +10,21 @@ const customSCU = (props, nextProps) => {
   return true
 };
 class FormClass extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0}
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({counter: ++this.state.counter})
+    }, 2000)
+  }
   render() {
     console.log("rendering FormClass, I am a class");
     return (
       <form>
-        <label>Value
+        <label>{`Value : ${this.state.counter}`}
         </label>
       </form>
     );
@@ -23,9 +33,11 @@ class FormClass extends Component {
 const Form = shouldUpdate(customSCU)(FormClass);
 
 class App extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
   render() {
     console.log("rendering...");
-    setTimeout(() => {this.forceUpdate()}, 2000);
     console.log('rendering app');
     return (
       <div className="App">
