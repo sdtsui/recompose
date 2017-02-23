@@ -4,13 +4,13 @@ import './App.css';
 import { shouldUpdate, withState, withHandlers, compose } from 'recompose';
 
 const customSCU = (props, nextProps) => {
+  console.log("single");
   console.log('calling custom SCU', nextProps);
   console.log('returning true');
   return true
 };
-const enhance = compose(
-  shouldUpdate(customSCU),
-)
+const enhance = shouldUpdate(customSCU);
+
 const Form = enhance(() =>
   <form>
     <label>Value
