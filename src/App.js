@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { shouldUpdate, withState, withHandlers, compose } from 'recompose';
+import { shouldUpdate } from 'recompose';
 
 const customSCU = (props, nextProps) => {
-  console.log("single");
+  console.log("class case");
   console.log('calling custom SCU', nextProps);
   console.log('returning true');
   return true
 };
-const enhance = shouldUpdate(customSCU);
-
-const Form = enhance(() =>
-  <form>
-    <label>Value
-    </label>
-  </form>
-)
+class FormClass extends Component {
+  render() {
+    console.log("rendering FormClass, I am a class");
+    return (
+      <form>
+        <label>Value
+        </label>
+      </form>
+    );
+  }
+}
+const Form = shouldUpdate(customSCU)(FormClass);
 
 class App extends Component {
   render() {
