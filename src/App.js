@@ -9,28 +9,19 @@ const customSCU = (props, nextProps) => {
   return true
 };
 const enhance = compose(
-  withState('value', 'updateValue', ''),
   shouldUpdate(customSCU),
-  withHandlers({
-    onChange: props => event => {
-      props.updateValue(event.target.value)
-    },
-    onSubmit: props => event => {
-      event.preventDefault()
-      console.log(props.value)
-    }
-  })
 )
-const Form = enhance(({ value, onChange, onSubmit }) =>
-  <form onSubmit={onSubmit}>
+const Form = enhance(() =>
+  <form>
     <label>Value
-      <input type="text" value={value} onChange={onChange} />
     </label>
   </form>
 )
 
 class App extends Component {
   render() {
+    console.log("rendering...");
+    setTimeout(() => {this.forceUpdate()}, 2000);
     console.log('rendering app');
     return (
       <div className="App">
